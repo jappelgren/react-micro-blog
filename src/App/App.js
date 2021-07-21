@@ -1,3 +1,5 @@
+import { sub } from 'date-fns';
+import format from 'date-fns/format';
 import { useState } from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import CreateMessage from '../CreateMessage/CreateMessage';
@@ -10,19 +12,19 @@ const initialDummyData = [
   id: 1,
   user: 'SharkMan5000',
   message: `It's really great being the shark man`,
-  posted: new Date().getTime() + 1
+  posted: new Date().getTime() + 100000000
 },
 {
   id: 2,
   user: 'SharkMan5000',
   message: `Truly a great day to be sharkin'`,
-  posted: new Date().getTime() + 2
+  posted: new Date(628021800000)
 },
 {
   id: 3,
   user: 'Octoman',
   message: `I'm so tired of all these star wars.`,
-  posted: new Date().getTime() + 3
+  posted: new Date(1626886800000)
 }
 ]
 

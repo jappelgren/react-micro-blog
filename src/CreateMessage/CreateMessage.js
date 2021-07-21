@@ -8,12 +8,13 @@ export default function CreateMessage({dummyData, setDummyData}) {
     }
 
     const handlePost = (e) => {
+        const timeStamp = new Date().getTime() 
         e.preventDefault()
         setDummyData([...dummyData, {
             id: dummyData.length + 1, 
             user: 'greg',
             message: postInput,
-            posted: new Date().getTime()
+            posted: timeStamp 
         }])
     }
 
