@@ -2,8 +2,9 @@ import React from 'react'
 
 export default function CreateMessage() {
     return (
-        <div>
-            
-        </div>
+        <form>
+            <input/>
+            <button>Post Message</button>
+        </form>
     )
 }
