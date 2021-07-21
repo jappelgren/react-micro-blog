@@ -3,10 +3,10 @@ import Message from '../Message/Message'
 
 export default function Feed({dummyData}) {
   
-    console.log(dummyData[0].posted)
+    console.log(dummyData[0]?.posted)
     return (
         <div>
-            {dummyData.map((post) => (<Message key={post.id} post={post} />))}
+            {dummyData?.map((post) => (<Message key={post?.id} post={post} />))}
         </div>
     )
 }

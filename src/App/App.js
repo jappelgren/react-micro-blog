@@ -30,6 +30,7 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState(null)
   const [dummyData, setDummyData] = useState(initialDummyData)
 
+  console.log('dd', dummyData)
   return (
     <Router>
     <div className="App">
@@ -38,7 +39,7 @@ function App() {
           <LoginForm loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}/>
         </Route>
         <Route path='/home'>
-          <CreateMessage setDummyData={setDummyData}/>
+          <CreateMessage dummyData={dummyData} setDummyData={setDummyData}/>
           <Feed dummyData={dummyData}/>
         </Route>
       </Switch>

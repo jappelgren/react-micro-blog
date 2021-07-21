@@ -4,9 +4,9 @@ export default function Message({post}) {
     return (
         <div>
             <hr/>
-            <div>{post.user} * {post.posted}</div>
+            <div>{post?.user} * {post?.posted}</div>
             
-            {post.message}
+            {post?.message}
             <hr/>
         </div>
     )
