@@ -1,12 +1,12 @@
 import React from 'react'
 import Message from '../Message/Message'
 
-export default function Feed({dummyData}) {
+export default function Feed({data}) {
   
-    console.log(dummyData[0]?.posted)
+    console.log(data[0]?.posted)
     return (
         <div>
-            {dummyData?.map((post) => (<Message key={post?.id} post={post} />))}
+            {data?.map((post) => (<Message key={post?.id} post={post} />))}
         </div>
     )
 }

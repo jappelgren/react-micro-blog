@@ -1,6 +1,7 @@
+import axios from 'axios';
 import { sub } from 'date-fns';
 import format from 'date-fns/format';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import CreateMessage from '../CreateMessage/CreateMessage';
 import Feed from '../Feed/Feed';
@@ -30,9 +31,23 @@ const initialDummyData = [
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null)
-  const [dummyData, setDummyData] = useState(initialDummyData)
+  // const [dummyData, setDummyData] = useState(initialDummyData)
+  const [data, setData] = useState([])
 
-  console.log('dd', dummyData)
+   
+
+  useEffect(() => {
+   axios.get('http://localhost:8080/api')
+    .then((res) => {
+      setData(res.data)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  },[] )
+
+  console.log(data)
+  // console.log('dd', dummyData)
   return (
     <Router>
     <div className="App">
@@ -41,8 +56,8 @@ function App() {
           <LoginForm loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}/>
         </Route>
         <Route path='/home'>
-          <CreateMessage dummyData={dummyData} setDummyData={setDummyData}/>
-          <Feed dummyData={dummyData}/>
+          <CreateMessage loggedInUser={loggedInUser} data={data} setData={setData}/>
+          <Feed data={data}/>
         </Route>
       </Switch>
     </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export default function CreateMessage({dummyData, setDummyData}) {
+export default function CreateMessage({loggedInUser, data, setData}) {
     const [postInput, setPostInput] = useState('')
     
     const handlePostInput = (e) => {
@@ -8,13 +8,11 @@ export default function CreateMessage({dummyData, setDummyData}) {
     }
 
     const handlePost = (e) => {
-        const timeStamp = new Date().getTime() 
+    
         e.preventDefault()
-        setDummyData([...dummyData, {
-            id: dummyData.length + 1, 
-            user: 'greg',
+        setData([...data, {
+            user: loggedInUser,
             message: postInput,
-            posted: timeStamp 
         }])
     }
 

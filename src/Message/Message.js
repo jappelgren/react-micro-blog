@@ -1,18 +1,21 @@
-import { format, sub } from 'date-fns'
+import { format } from 'date-fns'
 import React from 'react'
 
 export default function Message({post}) {
+
+    const timeConverted = new Date(post.posted)
+
     const timeStamp = () => {
         const today = new Date().getTime()
         
-        if(format(post?.posted, `MMM dd yyyy`) === format(today, 'MMM dd yyyy')) {
-            if(format(today, 'HH') - format(post?.posted, 'HH') === 0) {
-                return 'now'
+        if(format(timeConverted, `MMM dd yyyy`) === format(today, 'MMM dd yyyy')) {
+            if(format(today, 'HH') - format(timeConverted, 'HH') === 0) {
+                return 'posted now'
             } else {
-                return `${(format(today, 'HH') - format(post?.posted, 'HH') * 1)} hours ago`
+                return `${(format(today, 'HH') - format(timeConverted, 'HH') * 1)} hours ago`
             }
         } else {
-            return format(post?.posted, `MMM dd, yyyy`)
+            return format(timeConverted, `MMM dd, yyyy`)
         }
     }
    
@@ -20,7 +23,7 @@ export default function Message({post}) {
     return (
         <div>
             <hr/>
-            <div>{post?.user} * {`Posted ${timeStamp()}`}
+            <div>{post?.user_name} * {timeStamp()}
             </div>
             
             {post?.message}
