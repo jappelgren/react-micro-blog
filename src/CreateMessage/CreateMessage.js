@@ -1,7 +1,8 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import { useCookies } from 'react-cookie'
 
-export default function CreateMessage({loggedInUser, fetchPosts}) {
+export default function CreateMessage({loggedInUser, fetchPosts, cookie}) {
     const [postInput, setPostInput] = useState('')
     
     const handlePostInput = (e) => {
@@ -12,7 +13,7 @@ export default function CreateMessage({loggedInUser, fetchPosts}) {
         e.preventDefault()
         axios.post(
             'http://localhost:8080/api', 
-            {user_name: loggedInUser || 'Anonymous', message: postInput,}
+            {user_name: loggedInUser || cookie.userName, message: postInput,}
             )
             .then((res) => {
                 console.log(res.status)
@@ -29,7 +30,7 @@ export default function CreateMessage({loggedInUser, fetchPosts}) {
     console.log(postInput)
     
     return (
-        <form>
+        <form style={{marginTop: '5rem'}}>
             <input value={postInput} onChange={handlePostInput}/>
             <button onClick={handlePost} >Post Message</button>
         </form>

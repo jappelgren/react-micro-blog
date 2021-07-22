@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router'
+import randomEmoji from '../randomEmoji/randomEmoji'
 
-export default function LoginForm({loggedInUser, setLoggedInUser}) {
+
+export default function LoginForm({cookie, setCookie, setLoggedInUser}) {
     const [userName, setUserName] = useState('')
+
     const history = useHistory()
 
     const handleUserInput = (e) => {
@@ -11,18 +14,21 @@ export default function LoginForm({loggedInUser, setLoggedInUser}) {
 
     const handleLogIn = (e) => {
         e.preventDefault()
-        setLoggedInUser(userName)
+        const emojiUsername = randomEmoji() + " " + userName
+        setLoggedInUser(emojiUsername)
+        setCookie('userName', emojiUsername, {path: '/'})
         setUserName('')
         history.push('/home')
     }
 
-    console.log(`userName`, userName)
-    console.log(`loggedInUser`, loggedInUser)
+    console.log(`cookie`, cookie.name)
     
     return (
-        <form>
-            <input value={userName} onChange={handleUserInput} type='text'/>
-            <button type='submit' onClick={handleLogIn}>Login</button>
-        </form>
+        <div>
+            <form>
+                <input value={userName} onChange={handleUserInput} type='text'/>
+                <button type='submit' onClick={handleLogIn}>Login</button>
+            </form>
+        </div>
     )
 }

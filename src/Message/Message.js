@@ -1,11 +1,29 @@
+import { Button, createTheme, Grid, IconButton, makeStyles, Menu, MenuItem, Paper, Typography } from '@material-ui/core';
+import { FiberManualRecord, MoreHorizRounded } from '@material-ui/icons';
 import axios from 'axios';
 import { format } from 'date-fns'
 import React, { useState } from 'react'
 
+const useStyles = makeStyles(() => ({
+    messagePadding: {
+        padding: '1rem',
+        marginTop: '1rem'
+    },
+    textPadding: {
+        paddingTop: '1rem',
+        paddingBottom: '1rem',
+    }
+
+
+}))
+
 export default function Message({post, fetchPosts}) {
+
+    const classes = useStyles()
 
     const [editMode, setEditMode] = useState(false);
     const [editMessage, setEditMessage] = useState(post?.message);
+    const [anchorEl, setAnchorEl] = useState(null);
     
 
     const timeStamp = () => {
@@ -26,6 +44,7 @@ export default function Message({post, fetchPosts}) {
 
     const handleDelete = (e) => {
         e.preventDefault()
+        handleClose()
         axios.delete(`http://localhost:8080/api/${post.id}`)
         .then((res) => {
             console.log(res.status)
@@ -55,31 +74,61 @@ export default function Message({post, fetchPosts}) {
                 console.log(err)
             })
     }
+
+    const handleOpen = (e) => {
+        setAnchorEl(e.currentTarget)
+    }
    
+    const handleClose = () => {
+        setAnchorEl(null)
+    }
     
     return (
-        <div>
-            <hr/>
-            <div>{post?.user_name} * {timeStamp()}
-            </div>
-            
-            
-            {editMode ? 
-            (<form>
-                <div><input type="text" value={editMessage} onChange={(e) => setEditMessage(e.target.value)} /></div>
-                <button onClick={handleEdit}>Submit</button>
-                <button type="button" onClick={() => setEditMode(!editMode)}>Cancel</button>
-            </form>)
-            :(
-            <div>
-                 <div>{post?.message}</div>
-                <button onClick={handleDelete}>Delete</button>
-                <button onClick={() => setEditMode(!editMode)}>Edit</button>
-            </div>
-            )
-        }
-
-            <hr/>
-        </div>
+        <Grid container direction='column' className='textPadding'>
+            <Paper className={classes.messagePadding}>
+                <Grid container direction='row' alignItems='center' justifyContent='space-between'>
+                    <Grid item> 
+                        <Typography variant='h6'> 
+                        {post?.user_name}  
+                        </Typography> 
+                        <Typography variant='subtitle2'>
+                            {timeStamp()}
+                        </Typography>
+                    </Grid>
+                    
+                    <Grid item>
+                        <IconButton onClick={handleOpen}>
+                            <MoreHorizRounded/>
+                        </IconButton>
+                    </Grid>
+                </Grid>
+                <Menu
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                >
+                    
+                    <MenuItem onClick={handleDelete}>Delete</MenuItem>
+                    <MenuItem onClick={() => {setEditMode(!editMode); handleClose();}}>Edit</MenuItem>
+                </Menu>
+                {editMode ?
+                (
+                <Grid container direction='column'>
+                    <Grid item className={classes.messagePadding}><input type="text" value={editMessage} onChange={(e) => setEditMessage(e.target.value)} /></Grid>
+                    <form>
+                        <button onClick={handleEdit}>Submit</button>
+                        <button type="button" onClick={() => setEditMode(!editMode)}>Cancel</button>
+                    </form>
+                </Grid>
+                )
+                :(
+                <Grid container direction='column' alignItems='flex-start' justifyContent='space-between' className={classes.textPadding}>
+                    <Typography>{post?.message}</Typography>
+                </Grid>
+                )
+                }  
+            </Paper>
+        </Grid>
     )
 }
