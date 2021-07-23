@@ -11,7 +11,9 @@ const style = makeStyles((theme) => ({
        marginRight: theme.spacing(2)
    },
    title: {
-       flexGrow: 1
+       flexGrow: 1,
+       fontFamily: 'Poppins',
+       color: '#00aeff'
    },
    noShadow: {
        boxShadow: 'none'
@@ -32,7 +34,7 @@ export default function Header({removeCookie}) {
         <div className={classes.root}>
             <AppBar color='secondary' position='fixed' className={classes.noShadow}>
                 <Toolbar >
-                    <Typography className={classes.title}>placeHolder</Typography>
+                    <Typography variant='h3' className={classes.title}>microblog</Typography>
                     <Button className={classes.appBar} color='primary' variant='contained' onClick={handleLogout}>Logout</Button>
                 </Toolbar>
             </AppBar>

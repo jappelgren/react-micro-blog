@@ -9,7 +9,7 @@ import { yellow } from '@material-ui/core/colors';
 const theme = createTheme({
   palette: {
     primary: {
-      main: yellow[500],
+      main: '#00aeff'
     },
     secondary: {
       main: '#ffffff'
