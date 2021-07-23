@@ -1,3 +1,4 @@
+import { Button, Grid, TextField } from '@material-ui/core'
 import React, { useState } from 'react'
 import { useHistory } from 'react-router'
 import randomEmoji from '../randomEmoji/randomEmoji'
@@ -20,15 +21,29 @@ export default function LoginForm({cookie, setCookie, setLoggedInUser}) {
         setUserName('')
         history.push('/home')
     }
-
-    console.log(`cookie`, cookie.name)
     
     return (
-        <div>
-            <form>
-                <input value={userName} onChange={handleUserInput} type='text'/>
-                <button type='submit' onClick={handleLogIn}>Login</button>
-            </form>
-        </div>
+        <Grid 
+            container
+            spacing={0}
+            direction='column'
+            alignItems='center'
+            justify='center'
+            style={{minHeight: '100vh', background: 'linear-gradient(white, white, #ffea00)'}}    
+        >
+            <Grid item xs={3}>
+                <form>
+                    <Grid container>
+                    <TextField
+                        value={userName} 
+                        onChange={handleUserInput} 
+                        variant='outlined'
+                        label='Enter Username'
+                    />
+                    <Button type='submit' onClick={handleLogIn} variant='outlined'>Login</Button>
+                    </Grid>
+                </form>
+            </Grid>
+        </Grid>
     )
 }

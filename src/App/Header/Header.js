@@ -12,6 +12,9 @@ const style = makeStyles((theme) => ({
    },
    title: {
        flexGrow: 1
+   },
+   noShadow: {
+       boxShadow: 'none'
    }
 }))
 
@@ -27,10 +30,10 @@ export default function Header({removeCookie}) {
 
     return (
         <div className={classes.root}>
-            <AppBar position='fixed'>
+            <AppBar color='secondary' position='fixed' className={classes.noShadow}>
                 <Toolbar >
                     <Typography className={classes.title}>placeHolder</Typography>
-                    <Button className={classes.appBar} color='secondary' variant='contained' onClick={handleLogout}>Logout</Button>
+                    <Button className={classes.appBar} color='primary' variant='contained' onClick={handleLogout}>Logout</Button>
                 </Toolbar>
             </AppBar>
         </div>

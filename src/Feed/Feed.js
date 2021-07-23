@@ -7,6 +7,7 @@ export default function Feed({data, fetchPosts}) {
     console.log(data[0]?.posted)
     return (
         <Grid container xs={6}>
+            
             {data?.map((post) => (<Message key={post?.id} post={post} fetchPosts={fetchPosts} />))}
         </Grid>
     )

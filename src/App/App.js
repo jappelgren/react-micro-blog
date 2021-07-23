@@ -35,7 +35,7 @@ function App() {
   return (
     
     <Router>
-      <Grid container direction={'column'} alignItems={'center'} xs={12}>
+      <Grid container direction={'column'} alignItems={'center'} >
         <Switch>
           <Route path="/login">
             <LoginForm cookie={cookie} setCookie={setCookie} loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}/>

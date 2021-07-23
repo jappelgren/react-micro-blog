@@ -1,4 +1,4 @@
-import { Button, createTheme, Grid, IconButton, makeStyles, Menu, MenuItem, Paper, Typography } from '@material-ui/core';
+import { Button, createTheme, Grid, IconButton, makeStyles, Menu, MenuItem, Paper, Typography, TextField } from '@material-ui/core';
 import { FiberManualRecord, MoreHorizRounded } from '@material-ui/icons';
 import axios from 'axios';
 import { format } from 'date-fns'
@@ -12,6 +12,13 @@ const useStyles = makeStyles(() => ({
     textPadding: {
         paddingTop: '1rem',
         paddingBottom: '1rem',
+    },
+    textArea: {
+        width: '40vw'
+    },
+    buttonMargin: {
+        marginRight: '.5rem',
+        marginLeft: '.5rem'
     }
 
 
@@ -114,13 +121,27 @@ export default function Message({post, fetchPosts}) {
                 </Menu>
                 {editMode ?
                 (
-                <Grid container direction='column'>
-                    <Grid item className={classes.messagePadding}><input type="text" value={editMessage} onChange={(e) => setEditMessage(e.target.value)} /></Grid>
                     <form>
-                        <button onClick={handleEdit}>Submit</button>
-                        <button type="button" onClick={() => setEditMode(!editMode)}>Cancel</button>
-                    </form>
+                <Grid container direction='column' alignContent='center'>
+                    <Grid item className={classes.messagePadding}>
+                        <TextField  
+                        value={editMessage} 
+                        onChange={(e) => setEditMessage(e.target.value)} 
+                        fullWidth
+                        style={{margin: 8}}
+                        margin='normal'
+                        variant='outlined'
+                        multiline
+                        rows={4}
+                        />
+                    </Grid>
+                        <Grid container justifyContent='center'>
+                            <Grid item><Button variant='contained' color='primary' className={classes.buttonMargin} onClick={handleEdit}>Submit</Button></Grid>
+                            <Grid item><Button variant='contained' color='primary' className={classes.buttonMargin} onClick={() => setEditMode(!editMode)}>Cancel</Button></Grid>
+                        </Grid>
+
                 </Grid>
+                    </form>
                 )
                 :(
                 <Grid container direction='column' alignItems='flex-start' justifyContent='space-between' className={classes.textPadding}>
@@ -128,6 +149,7 @@ export default function Message({post, fetchPosts}) {
                 </Grid>
                 )
                 }  
+                
             </Paper>
         </Grid>
     )
